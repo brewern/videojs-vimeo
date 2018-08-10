@@ -2591,8 +2591,13 @@ Vimeo.nativeSourceHandler.dispose = function () {};
 
 Vimeo.registerSourceHandler(Vimeo.nativeSourceHandler);
 
-Component.registerComponent('Vimeo', Vimeo);
-Tech.registerTech('Vimeo', Vimeo);
+if (typeof Tech.registerTech !== 'undefined') {
+  _video2.default.registerTech('Vimeo', Vimeo);
+} else {
+  Component.registerComponent('Vimeo', Vimeo);
+}
+
+console.log("TECH", Tech.getTech('Vimeo'));
 
 // Include the version number.
 Vimeo.VERSION = '0.0.1';

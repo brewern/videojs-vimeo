@@ -1,6 +1,7 @@
 import videojs from 'video.js';
 import VimeoPlayer from '@vimeo/player';
 
+const Component = videojs.getComponent('Component');
 const Tech = videojs.getComponent('Tech');
 let cssInjected = false;
 
@@ -262,8 +263,11 @@ Vimeo.nativeSourceHandler.dispose = function() { };
 
 Vimeo.registerSourceHandler(Vimeo.nativeSourceHandler);
 
-videojs.registerComponent('Vimeo', Vimeo);
-videojs.registerTech('Vimeo', Vimeo);
+if (typeof Tech.registerTech !== 'undefined') {
+  Tech.registerTech('Vimeo', Vimeo);
+} else {
+  Component.registerComponent('Vimeo', Vimeo);
+}
 
 // Include the version number.
 Vimeo.VERSION = '0.0.1';
